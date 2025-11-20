@@ -1,0 +1,190 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] ---------------------< org.example:flink-ysb-ctr >----------------------
+[INFO] Building flink-ysb-ctr 1.0-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- exec:3.6.2:java (default-cli) @ flink-ysb-ctr ---
+SLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder".
+SLF4J: Defaulting to no-operation (NOP) logger implementation
+SLF4J: See http://www.slf4j.org/codes.html#StaticLoggerBinder for further details.
+[WARNING] 
+org.apache.flink.runtime.client.JobExecutionException: Job execution failed.
+    at org.apache.flink.runtime.jobmaster.JobResult.toJobExecutionResult (JobResult.java:144)
+    at org.apache.flink.runtime.minicluster.MiniClusterJobClient.lambda$getJobExecutionResult$3 (MiniClusterJobClient.java:141)
+    at java.util.concurrent.CompletableFuture$UniApply.tryFire (CompletableFuture.java:646)
+    at java.util.concurrent.CompletableFuture.postComplete (CompletableFuture.java:510)
+    at java.util.concurrent.CompletableFuture.complete (CompletableFuture.java:2147)
+    at org.apache.flink.runtime.rpc.akka.AkkaInvocationHandler.lambda$invokeRpc$1 (AkkaInvocationHandler.java:267)
+    at java.util.concurrent.CompletableFuture.uniWhenComplete (CompletableFuture.java:863)
+    at java.util.concurrent.CompletableFuture$UniWhenComplete.tryFire (CompletableFuture.java:841)
+    at java.util.concurrent.CompletableFuture.postComplete (CompletableFuture.java:510)
+    at java.util.concurrent.CompletableFuture.complete (CompletableFuture.java:2147)
+    at org.apache.flink.util.concurrent.FutureUtils.doForward (FutureUtils.java:1300)
+    at org.apache.flink.runtime.concurrent.akka.ClassLoadingUtils.lambda$null$1 (ClassLoadingUtils.java:93)
+    at org.apache.flink.runtime.concurrent.akka.ClassLoadingUtils.runWithContextClassLoader (ClassLoadingUtils.java:68)
+    at org.apache.flink.runtime.concurrent.akka.ClassLoadingUtils.lambda$guardCompletionWithContextClassLoader$2 (ClassLoadingUtils.java:92)
+    at java.util.concurrent.CompletableFuture.uniWhenComplete (CompletableFuture.java:863)
+    at java.util.concurrent.CompletableFuture$UniWhenComplete.tryFire (CompletableFuture.java:841)
+    at java.util.concurrent.CompletableFuture.postComplete (CompletableFuture.java:510)
+    at java.util.concurrent.CompletableFuture.complete (CompletableFuture.java:2147)
+    at org.apache.flink.runtime.concurrent.akka.AkkaFutureUtils$1.onComplete (AkkaFutureUtils.java:47)
+    at akka.dispatch.OnComplete.internal (Future.scala:300)
+    at akka.dispatch.OnComplete.internal (Future.scala:297)
+    at akka.dispatch.japi$CallbackBridge.apply (Future.scala:224)
+    at akka.dispatch.japi$CallbackBridge.apply (Future.scala:221)
+    at scala.concurrent.impl.CallbackRunnable.run (Promise.scala:64)
+    at org.apache.flink.runtime.concurrent.akka.AkkaFutureUtils$DirectExecutionContext.execute (AkkaFutureUtils.java:65)
+    at scala.concurrent.impl.CallbackRunnable.executeWithValue (Promise.scala:72)
+    at scala.concurrent.impl.Promise$DefaultPromise.$anonfun$tryComplete$1 (Promise.scala:288)
+    at scala.concurrent.impl.Promise$DefaultPromise.$anonfun$tryComplete$1$adapted (Promise.scala:288)
+    at scala.concurrent.impl.Promise$DefaultPromise.tryComplete (Promise.scala:288)
+    at akka.pattern.PromiseActorRef.$bang (AskSupport.scala:622)
+    at akka.pattern.PipeToSupport$PipeableFuture$$anonfun$pipeTo$1.applyOrElse (PipeToSupport.scala:24)
+    at akka.pattern.PipeToSupport$PipeableFuture$$anonfun$pipeTo$1.applyOrElse (PipeToSupport.scala:23)
+    at scala.concurrent.Future.$anonfun$andThen$1 (Future.scala:536)
+    at scala.concurrent.impl.Promise.liftedTree1$1 (Promise.scala:33)
+    at scala.concurrent.impl.Promise.$anonfun$transform$1 (Promise.scala:33)
+    at scala.concurrent.impl.CallbackRunnable.run (Promise.scala:64)
+    at akka.dispatch.BatchingExecutor$AbstractBatch.processBatch (BatchingExecutor.scala:63)
+    at akka.dispatch.BatchingExecutor$BlockableBatch.$anonfun$run$1 (BatchingExecutor.scala:100)
+    at scala.runtime.java8.JFunction0$mcV$sp.apply (JFunction0$mcV$sp.java:23)
+    at scala.concurrent.BlockContext$.withBlockContext (BlockContext.scala:85)
+    at akka.dispatch.BatchingExecutor$BlockableBatch.run (BatchingExecutor.scala:100)
+    at akka.dispatch.TaskInvocation.run (AbstractDispatcher.scala:49)
+    at akka.dispatch.ForkJoinExecutorConfigurator$AkkaForkJoinTask.exec (ForkJoinExecutorConfigurator.scala:48)
+    at java.util.concurrent.ForkJoinTask.doExec (ForkJoinTask.java:373)
+    at java.util.concurrent.ForkJoinPool$WorkQueue.topLevelExec (ForkJoinPool.java:1182)
+    at java.util.concurrent.ForkJoinPool.scan (ForkJoinPool.java:1655)
+    at java.util.concurrent.ForkJoinPool.runWorker (ForkJoinPool.java:1622)
+    at java.util.concurrent.ForkJoinWorkerThread.run (ForkJoinWorkerThread.java:165)
+Caused by: org.apache.flink.runtime.JobException: Recovery is suppressed by NoRestartBackoffTimeStrategy
+    at org.apache.flink.runtime.executiongraph.failover.flip1.ExecutionFailureHandler.handleFailure (ExecutionFailureHandler.java:139)
+    at org.apache.flink.runtime.executiongraph.failover.flip1.ExecutionFailureHandler.getGlobalFailureHandlingResult (ExecutionFailureHandler.java:102)
+    at org.apache.flink.runtime.scheduler.DefaultScheduler.handleGlobalFailure (DefaultScheduler.java:301)
+    at org.apache.flink.runtime.operators.coordination.OperatorCoordinatorHolder$LazyInitializedCoordinatorContext.lambda$failJob$0 (OperatorCoordinatorHolder.java:618)
+    at org.apache.flink.runtime.rpc.akka.AkkaRpcActor.lambda$handleRunAsync$4 (AkkaRpcActor.java:453)
+    at org.apache.flink.runtime.concurrent.akka.ClassLoadingUtils.runWithContextClassLoader (ClassLoadingUtils.java:68)
+    at org.apache.flink.runtime.rpc.akka.AkkaRpcActor.handleRunAsync (AkkaRpcActor.java:453)
+    at org.apache.flink.runtime.rpc.akka.AkkaRpcActor.handleRpcMessage (AkkaRpcActor.java:218)
+    at org.apache.flink.runtime.rpc.akka.FencedAkkaRpcActor.handleRpcMessage (FencedAkkaRpcActor.java:84)
+    at org.apache.flink.runtime.rpc.akka.AkkaRpcActor.handleMessage (AkkaRpcActor.java:168)
+    at akka.japi.pf.UnitCaseStatement.apply (CaseStatements.scala:24)
+    at akka.japi.pf.UnitCaseStatement.apply (CaseStatements.scala:20)
+    at scala.PartialFunction.applyOrElse (PartialFunction.scala:127)
+    at scala.PartialFunction.applyOrElse$ (PartialFunction.scala:126)
+    at akka.japi.pf.UnitCaseStatement.applyOrElse (CaseStatements.scala:20)
+    at scala.PartialFunction$OrElse.applyOrElse (PartialFunction.scala:175)
+    at scala.PartialFunction$OrElse.applyOrElse (PartialFunction.scala:176)
+    at scala.PartialFunction$OrElse.applyOrElse (PartialFunction.scala:176)
+    at akka.actor.Actor.aroundReceive (Actor.scala:537)
+    at akka.actor.Actor.aroundReceive$ (Actor.scala:535)
+    at akka.actor.AbstractActor.aroundReceive (AbstractActor.scala:220)
+    at akka.actor.ActorCell.receiveMessage (ActorCell.scala:579)
+    at akka.actor.ActorCell.invoke (ActorCell.scala:547)
+    at akka.dispatch.Mailbox.processMailbox (Mailbox.scala:270)
+    at akka.dispatch.Mailbox.run (Mailbox.scala:231)
+    at akka.dispatch.Mailbox.exec (Mailbox.scala:243)
+    at java.util.concurrent.ForkJoinTask.doExec (ForkJoinTask.java:373)
+    at java.util.concurrent.ForkJoinPool$WorkQueue.topLevelExec (ForkJoinPool.java:1182)
+    at java.util.concurrent.ForkJoinPool.scan (ForkJoinPool.java:1655)
+    at java.util.concurrent.ForkJoinPool.runWorker (ForkJoinPool.java:1622)
+    at java.util.concurrent.ForkJoinWorkerThread.run (ForkJoinWorkerThread.java:165)
+Caused by: org.apache.flink.util.FlinkException: Global failure triggered by OperatorCoordinator for 'Source: Kafka Source' (operator bc764cd8ddf7a0cff126f51c16239658).
+    at org.apache.flink.runtime.operators.coordination.OperatorCoordinatorHolder$LazyInitializedCoordinatorContext.failJob (OperatorCoordinatorHolder.java:600)
+    at org.apache.flink.runtime.operators.coordination.RecreateOnResetOperatorCoordinator$QuiesceableContext.failJob (RecreateOnResetOperatorCoordinator.java:237)
+    at org.apache.flink.runtime.source.coordinator.SourceCoordinatorContext.failJob (SourceCoordinatorContext.java:374)
+    at org.apache.flink.runtime.source.coordinator.SourceCoordinatorContext.handleUncaughtExceptionFromAsyncCall (SourceCoordinatorContext.java:387)
+    at org.apache.flink.util.ThrowableCatchingRunnable.run (ThrowableCatchingRunnable.java:42)
+    at java.util.concurrent.Executors$RunnableAdapter.call (Executors.java:539)
+    at java.util.concurrent.FutureTask.run (FutureTask.java:264)
+    at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run (ScheduledThreadPoolExecutor.java:304)
+    at java.util.concurrent.ThreadPoolExecutor.runWorker (ThreadPoolExecutor.java:1136)
+    at java.util.concurrent.ThreadPoolExecutor$Worker.run (ThreadPoolExecutor.java:635)
+    at java.lang.Thread.run (Thread.java:840)
+Caused by: org.apache.flink.util.FlinkRuntimeException: Failed to list subscribed topic partitions due to 
+    at org.apache.flink.connector.kafka.source.enumerator.KafkaSourceEnumerator.checkPartitionChanges (KafkaSourceEnumerator.java:234)
+    at org.apache.flink.runtime.source.coordinator.ExecutorNotifier.lambda$null$1 (ExecutorNotifier.java:83)
+    at org.apache.flink.util.ThrowableCatchingRunnable.run (ThrowableCatchingRunnable.java:40)
+    at java.util.concurrent.Executors$RunnableAdapter.call (Executors.java:539)
+    at java.util.concurrent.FutureTask.run (FutureTask.java:264)
+    at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run (ScheduledThreadPoolExecutor.java:304)
+    at java.util.concurrent.ThreadPoolExecutor.runWorker (ThreadPoolExecutor.java:1136)
+    at java.util.concurrent.ThreadPoolExecutor$Worker.run (ThreadPoolExecutor.java:635)
+    at java.lang.Thread.run (Thread.java:840)
+Caused by: java.lang.RuntimeException: Failed to get metadata for topics [ysb-events].
+    at org.apache.flink.connector.kafka.source.enumerator.subscriber.KafkaSubscriberUtils.getTopicMetadata (KafkaSubscriberUtils.java:47)
+    at org.apache.flink.connector.kafka.source.enumerator.subscriber.TopicListSubscriber.getSubscribedTopicPartitions (TopicListSubscriber.java:52)
+    at org.apache.flink.connector.kafka.source.enumerator.KafkaSourceEnumerator.getSubscribedTopicPartitions (KafkaSourceEnumerator.java:219)
+    at org.apache.flink.runtime.source.coordinator.ExecutorNotifier.lambda$notifyReadyAsync$2 (ExecutorNotifier.java:80)
+    at java.util.concurrent.Executors$RunnableAdapter.call (Executors.java:539)
+    at java.util.concurrent.FutureTask.run (FutureTask.java:264)
+    at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run (ScheduledThreadPoolExecutor.java:304)
+    at java.util.concurrent.ThreadPoolExecutor.runWorker (ThreadPoolExecutor.java:1136)
+    at java.util.concurrent.ThreadPoolExecutor$Worker.run (ThreadPoolExecutor.java:635)
+    at java.lang.Thread.run (Thread.java:840)
+Caused by: java.util.concurrent.ExecutionException: org.apache.kafka.common.errors.TimeoutException: Timed out waiting to send the call. Call: describeTopics
+    at java.util.concurrent.CompletableFuture.reportGet (CompletableFuture.java:396)
+    at java.util.concurrent.CompletableFuture.get (CompletableFuture.java:2073)
+    at org.apache.kafka.common.internals.KafkaFutureImpl.get (KafkaFutureImpl.java:165)
+    at org.apache.flink.connector.kafka.source.enumerator.subscriber.KafkaSubscriberUtils.getTopicMetadata (KafkaSubscriberUtils.java:44)
+    at org.apache.flink.connector.kafka.source.enumerator.subscriber.TopicListSubscriber.getSubscribedTopicPartitions (TopicListSubscriber.java:52)
+    at org.apache.flink.connector.kafka.source.enumerator.KafkaSourceEnumerator.getSubscribedTopicPartitions (KafkaSourceEnumerator.java:219)
+    at org.apache.flink.runtime.source.coordinator.ExecutorNotifier.lambda$notifyReadyAsync$2 (ExecutorNotifier.java:80)
+    at java.util.concurrent.Executors$RunnableAdapter.call (Executors.java:539)
+    at java.util.concurrent.FutureTask.run (FutureTask.java:264)
+    at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run (ScheduledThreadPoolExecutor.java:304)
+    at java.util.concurrent.ThreadPoolExecutor.runWorker (ThreadPoolExecutor.java:1136)
+    at java.util.concurrent.ThreadPoolExecutor$Worker.run (ThreadPoolExecutor.java:635)
+    at java.lang.Thread.run (Thread.java:840)
+Caused by: org.apache.kafka.common.errors.TimeoutException: Timed out waiting to send the call. Call: describeTopics
+[WARNING] thread Thread[ForkJoinPool.commonPool-worker-5,5,org.example.YSBCTRJob] was interrupted but is still alive after waiting at least 15000msecs
+[WARNING] thread Thread[ForkJoinPool.commonPool-worker-5,5,org.example.YSBCTRJob] will linger despite being asked to die via interruption
+[WARNING] thread Thread[ForkJoinPool.commonPool-worker-6,5,org.example.YSBCTRJob] will linger despite being asked to die via interruption
+[WARNING] thread Thread[FlinkCompletableFutureDelayScheduler-thread-1,5,org.example.YSBCTRJob] will linger despite being asked to die via interruption
+[WARNING] NOTE: 3 thread(s) did not finish despite being asked to via interruption. This is not a problem with exec:java, it is a problem with the running code. Although not serious, it should be remedied.
+[WARNING] Couldn't destroy threadgroup org.codehaus.mojo.exec.AbstractExecJavaBase$IsolatedThreadGroup[name=org.example.YSBCTRJob,maxpri=10]
+java.lang.IllegalThreadStateException
+    at java.lang.ThreadGroup.destroy (ThreadGroup.java:803)
+    at org.codehaus.mojo.exec.AbstractExecJavaBase.execute (AbstractExecJavaBase.java:345)
+    at org.apache.maven.plugin.DefaultBuildPluginManager.executeMojo (DefaultBuildPluginManager.java:126)
+    at org.apache.maven.lifecycle.internal.MojoExecutor.doExecute2 (MojoExecutor.java:328)
+    at org.apache.maven.lifecycle.internal.MojoExecutor.doExecute (MojoExecutor.java:316)
+    at org.apache.maven.lifecycle.internal.MojoExecutor.execute (MojoExecutor.java:212)
+    at org.apache.maven.lifecycle.internal.MojoExecutor.execute (MojoExecutor.java:174)
+    at org.apache.maven.lifecycle.internal.MojoExecutor.access$000 (MojoExecutor.java:75)
+    at org.apache.maven.lifecycle.internal.MojoExecutor$1.run (MojoExecutor.java:162)
+    at org.apache.maven.plugin.DefaultMojosExecutionStrategy.execute (DefaultMojosExecutionStrategy.java:39)
+    at org.apache.maven.lifecycle.internal.MojoExecutor.execute (MojoExecutor.java:159)
+    at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject (LifecycleModuleBuilder.java:105)
+    at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject (LifecycleModuleBuilder.java:73)
+    at org.apache.maven.lifecycle.internal.builder.singlethreaded.SingleThreadedBuilder.build (SingleThreadedBuilder.java:53)
+    at org.apache.maven.lifecycle.internal.LifecycleStarter.execute (LifecycleStarter.java:118)
+    at org.apache.maven.DefaultMaven.doExecute (DefaultMaven.java:261)
+    at org.apache.maven.DefaultMaven.doExecute (DefaultMaven.java:173)
+    at org.apache.maven.DefaultMaven.execute (DefaultMaven.java:101)
+    at org.apache.maven.cli.MavenCli.execute (MavenCli.java:906)
+    at org.apache.maven.cli.MavenCli.doMain (MavenCli.java:283)
+    at org.apache.maven.cli.MavenCli.main (MavenCli.java:206)
+    at jdk.internal.reflect.NativeMethodAccessorImpl.invoke0 (Native Method)
+    at jdk.internal.reflect.NativeMethodAccessorImpl.invoke (NativeMethodAccessorImpl.java:77)
+    at jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke (DelegatingMethodAccessorImpl.java:43)
+    at java.lang.reflect.Method.invoke (Method.java:569)
+    at org.codehaus.plexus.classworlds.launcher.Launcher.launchEnhanced (Launcher.java:255)
+    at org.codehaus.plexus.classworlds.launcher.Launcher.launch (Launcher.java:201)
+    at org.codehaus.plexus.classworlds.launcher.Launcher.mainWithExitCode (Launcher.java:361)
+    at org.codehaus.plexus.classworlds.launcher.Launcher.main (Launcher.java:314)
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  01:22 min
+[INFO] Finished at: 2025-11-20T06:47:53+05:30
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.codehaus.mojo:exec-maven-plugin:3.6.2:java (default-cli) on project flink-ysb-ctr: An exception occurred while executing the Java class. Job execution failed.: Recovery is suppressed by NoRestartBackoffTimeStrategy: Global failure triggered by OperatorCoordinator for 'Source: Kafka Source' (operator bc764cd8ddf7a0cff126f51c16239658). Failed to list subscribed topic partitions due to: Failed to get metadata for topics [ysb-events]. org.apache.kafka.common.errors.TimeoutException: Timed out waiting to send the call. Call: describeTopics -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoExecutionException

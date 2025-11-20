@@ -1,0 +1,6 @@
+KAFKA_BOOTSTRAP_SERVERS = "127.0.0.1:9093"
+INPUT_TOPIC = "ysb-events"
+OUTPUT_TOPIC = "ysb-ctr-results-spark"
+CHECKPOINT_LOCATION = "/tmp/spark-checkpoints"
+WINDOW_DURATION = "10 seconds"
+WATERMARK_DELAY = "5 seconds"

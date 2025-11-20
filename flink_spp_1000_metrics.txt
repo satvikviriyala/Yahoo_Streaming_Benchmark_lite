@@ -1,0 +1,3 @@
+Collecting from ysb-ctr-results-flink for 45s...
+Error: Command '['docker', 'exec', 'broker', 'kafka-console-consumer', '--bootstrap-server', 'broker:29092', '--topic', 'ysb-ctr-results-flink', '--from-beginning', '--timeout-ms', '45000']' timed out after 50 seconds
+No data collected from ysb-ctr-results-flink
