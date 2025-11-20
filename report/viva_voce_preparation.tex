@@ -398,30 +398,62 @@ For our configuration:
 
 \textbf{Actual Observed}: 15.2 seconds ✓ (matches expectations!)
 
-\subsection{Flink Performance Results}
+\subsection{Spark Performance Results}
+
+\textbf{Actual Measured Performance (SPP 100 events/sec)}:
 
 \begin{table}[h]
 \centering
-\begin{tabular}{lccc}
+\begin{tabular}{lr}
 \toprule
-\textbf{Test Scenario} & \textbf{Load (eps)} & \textbf{Mean Latency} & \textbf{P99 Latency} \\
+\textbf{Metric} & \textbf{Value} \\
 \midrule
-SPP Low Load & 100 & 15.5 ms & 20.1 ms \\
-SPP High Load & 1000 & 18.2 ms & 25.3 ms \\
-MMPP Variable & 100-1000 & 16.8 ms & 23.7 ms \\
+Total Samples Collected & 320 windows \\
+Unique Windows Processed & 32 windows \\
+\midrule
+\textbf{Latency (milliseconds)} & \\
+Mean & 16,050.85 ms \\
+Median & 15,985.50 ms \\
+Standard Deviation & 1,670.02 ms \\
+Minimum & 7,040 ms \\
+Maximum & 17,000 ms \\
+P50 (50th percentile) & 15,986 ms \\
+P95 (95th percentile) & 16,986 ms \\
+P99 (99th percentile) & 16,994 ms \\
 \bottomrule
 \end{tabular}
-\caption{Flink Performance Metrics (Representative Values)}
+\caption{Spark Performance Metrics - Actual Results}
 \end{table}
 
-\textbf{Observations}:
+\textbf{Sample Output}:
+\begin{verbatim}
+{"campaign_id":"c3956cd9-ea10-4033-aeea-290269e83fa4",
+ "window_end_time":"2025-11-20 08:33:20",
+ "views":4,"clicks":1,"ctr":0.25,
+ "result_generation_time_ms":1763607807000,
+ "min_insertion_time_ms":1763607799686}
+\end{verbatim}
+
+Latency calculation: $1763607807000 - 1763607799686 = 7314$ ms $\approx$ 7.3 seconds
+
+\textbf{Analysis}:
 \begin{itemize}
-    \item Latency increases slightly with load (18.2ms vs 15.5ms)
-    \item All latencies within expected 15-20 second range
-    \item P99 latencies show system handles outliers well
-    \item MMPP performance between low and high SPP (as expected)
+    \item Mean latency of 16.05 seconds matches theoretical expectation (10s window + 5s watermark + processing)
+    \item Low standard deviation (1.67s) indicates consistent performance
+    \item P99 latency (16.994s) very close to mean, showing minimal outliers
+    \item Minimum latency (7.04s) likely represents first incomplete window
 \end{itemize}
 
+\subsection{Flink Implementation Status}
+
+Flink implementation is complete but requires specific startup sequence:
+\begin{enumerate}
+    \item Start data generator FIRST
+    \item Wait 30 seconds for topic to populate
+    \item THEN start Flink job
+\end{enumerate}
+
+\textbf{Issue}: Flink fails with \texttt{TimeoutException} when connecting to empty Kafka topic. This is a known limitation requiring data to exist before Flink starts consuming.
 %═══════════════════════════════════════════════════════════════════
 \section{Critical Challenges and Solutions}
 
@@ -504,6 +536,28 @@ Kafka 7.4.0 needs time to:
 
 \subsubsection{Solution}
 Wait 60 seconds after starting Kafka before sending data.
+
+\subsection{Challenge 5: Flink Empty Topic Timeout}
+
+\subsubsection{Problem}
+Flink fails when starting before data exists in topic:
+\begin{verbatim}
+TimeoutException: Timeout of 60000ms expired before the position 
+for partition ysb-events-0 could be determined
+\end{verbatim}
+
+\subsubsection{Root Cause}
+Flink's Kafka consumer cannot determine starting offset when topic is empty or newly created.
+
+\subsubsection{Solution - CRITICAL STARTUP SEQUENCE}
+\begin{enumerate}
+    \item Start data generator FIRST
+    \item Wait 30 seconds for data to populate topic
+    \item THEN start Flink job (while generator is still running)
+    \item Let both run together for test duration
+\end{enumerate}
+
+\textbf{Key Lesson}: Always ensure Kafka topics have data before starting Flink consumers.
 
 %═══════════════════════════════════════════════════════════════════
 \section{Comparative Analysis: Spark vs Flink}

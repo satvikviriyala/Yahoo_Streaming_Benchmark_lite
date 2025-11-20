@@ -4,6 +4,7 @@
 ## Overview
 This guide will help you run comprehensive benchmarks for both Spark and Flink.
 Each step includes the exact command to run and what to expect.
+This assumes you have installed all the requirements before running this guide.
 
 ═══════════════════════════════════════════════════════════════════
 
@@ -281,6 +282,42 @@ pkill -f "spark"
 ### If Spark fails to start:
 - That's OK! Focus on Flink benchmarks
 - Document Spark's checkpoint issues in report
+
+### **CRITICAL: If Flink fails with "Timeout expired before position could be determined"**
+
+**Problem**: 
+```
+TimeoutException: Timeout of 60000ms expired before the position 
+for partition ysb-events-0 could be determined
+```
+
+**Root Cause**: Flink is trying to connect to an empty Kafka topic and can't determine where to start reading.
+
+**Solution - CORRECTED STARTUP SEQUENCE**:
+
+1. **Start generator FIRST** (Terminal 3):
+   ```bash
+   python3 generators/spp_generator.py --rate 100 --stdout | \
+       docker exec -i broker kafka-console-producer --bootstrap-server broker:29092 --topic ysb-events
+   ```
+   
+2. **Wait 30 seconds** for data to populate the topic
+
+3. **THEN start Flink** (Terminal 1) while generator is still running:
+   ```bash
+   cd flink
+   mvn exec:java -Dexec.mainClass="org.example.YSBCTRJob" -Djava.net.preferIPv4Stack=true
+   ```
+
+4. Let both run together for 3 minutes
+
+5. Stop generator (Ctrl+C in Terminal 3)
+
+6. Collect metrics
+
+7. Stop Flink (Ctrl+C in Terminal 1)
+
+**Key Lesson**: Always start data generators before starting Flink to ensure the topic has data.
 
 ### If no metrics collected:
 - Check if jobs are running: `ps aux | grep -E "flink|spark"`
