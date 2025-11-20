@@ -1,0 +1,17 @@
+{
+  "topic": "ysb-ctr-results-spark",
+  "sample_count": 320,
+  "window_count": 32,
+  "latency_ms": {
+    "mean": 16050.85,
+    "median": 15985.5,
+    "stdev": 1670.022890237884,
+    "min": 7040,
+    "max": 17000,
+    "p50": 15986,
+    "p95": 16986,
+    "p99": 16994
+  },
+  "collection_duration_s": 45,
+  "timestamp": 1763608305.005453
+}

@@ -1,0 +1,17 @@
+{
+  "topic": "ysb-ctr-results-flink",
+  "sample_count": 500,
+  "window_count": 50,
+  "latency_ms": {
+    "mean": 415682.496,
+    "median": 518579.0,
+    "stdev": 278652.078248691,
+    "min": 14856,
+    "max": 754041,
+    "p50": 523418,
+    "p95": 743581,
+    "p99": 754007
+  },
+  "collection_duration_s": 45,
+  "timestamp": 1763609143.33888
+}
