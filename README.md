@@ -419,38 +419,6 @@ Flink implementation is functional but requires careful startup sequencing (gene
 
 ---
 
-## 🎓 For Viva Voce Preparation
-
-See **[report/viva_voce_preparation.tex](report/viva_voce_preparation.tex)** for:
-- Detailed theoretical explanations
-- Implementation details with code
-- Common interview questions and answers
-- Comparative analysis of Spark vs Flink
-- Troubleshooting lessons learned
-
----
-
-## 📚 References
-
-1. **Apache Flink Documentation**: https://flink.apache.org/
-2. **Apache Spark Structured Streaming**: https://spark.apache.org/docs/latest/structured-streaming-programming-guide.html
-3. **Yahoo Streaming Benchmark**: https://github.com/yahoo/streaming-benchmarks
-4. **Akidau et al. (2015)**: "The Dataflow Model" - VLDB
-5. **Carbone et al. (2015)**: "Apache Flink: Stream and Batch Processing in a Single Engine"
-
----
-
-## 🤝 Contributing
-
-This is an academic assignment. For questions or issues, refer to the troubleshooting guide or consult the course materials.
-
----
-
-## 📝 License
-
-Academic project for Streaming Data Systems course.
-
----
 
 ## ✅ Checklist for Successful Run
 
@@ -465,7 +433,3 @@ Academic project for Streaming Data Systems course.
 - [ ] Metrics collected successfully
 
 ---
-
-**Last Updated:** 2025-11-20
-
-**Status:** ✅ Fully Functional (with corrected startup sequence)
